@@ -1,198 +1,107 @@
-# api-design-checklist
+<!-- Header -->
+<div align="center">
 
-# ✅ API Design Checklist
+# Hey, I'm Wongsaphat Nakmuang 👋
+### Backend Engineer · Learning API Design in Public
 
-> A practical checklist for designing REST APIs — built from real mistakes I made as a Junior Backend Engineer.
->
-> If you're building an API and want it to be **consistent, secure, and maintainable** — go through this list before shipping.
+*"Building APIs that developers actually enjoy using."*
 
-**By [Wongsaphat Nakmuang](https://github.com/Bee34949) · Backend Engineer @ INET**
+[![Blog](https://img.shields.io/badge/Blog-Dev.to-0A0A0A?style=flat&logo=devdotto&logoColor=white)](https://dev.to/beeworkk)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat&logo=linkedin)](https://linkedin.com/in/wongsaphat-nakmuang)
 
----
 
-## 🟢 Basic — For Juniors Getting Started
-
-These are the fundamentals. If you skip any of these, your API will cause pain for whoever integrates with it (including future you).
-
-### 📌 Naming & Structure
-
-- [ ] Use **nouns** for endpoints, not verbs
-  - ✅ `GET /users` — ❌ `GET /getUsers`
-- [ ] Use **plural** resource names consistently
-  - ✅ `/users`, `/orders` — ❌ `/user`, `/order`
-- [ ] Use **lowercase** and **hyphens** for multi-word paths
-  - ✅ `/user-profiles` — ❌ `/userProfiles`, `/user_profiles`
-- [ ] Nest resources logically (max 2 levels deep)
-  - ✅ `/users/{id}/orders` — ❌ `/users/{id}/orders/{id}/items/{id}/details`
-
-### 📌 HTTP Methods
-
-- [ ] Use the correct HTTP method for each action
-  - `GET` → Read (no side effects)
-  - `POST` → Create
-  - `PUT` → Replace entire resource
-  - `PATCH` → Update partial resource
-  - `DELETE` → Remove
-- [ ] `GET` requests must **never modify data**
-- [ ] `DELETE` returns `204 No Content` (not `200` with a body)
-
-### 📌 HTTP Status Codes
-
-- [ ] Return the correct status code — not just `200` for everything
-  - `200` OK — success with body
-  - `201` Created — resource created (use with `POST`)
-  - `204` No Content — success without body
-  - `400` Bad Request — client sent invalid data
-  - `401` Unauthorized — not authenticated
-  - `403` Forbidden — authenticated but no permission
-  - `404` Not Found — resource doesn't exist
-  - `422` Unprocessable Entity — validation failed
-  - `500` Internal Server Error — something broke on your end
-- [ ] Never return `200` with `{ "success": false }` in the body
-
-### 📌 Error Response Format (Consistent Every Time)
-
-> This was my biggest lesson — inconsistent error responses break frontend integrations.
-
-- [ ] Every error response uses the **same structure** across all endpoints
-
-```json
-{
-  "status": "error",
-  "code": 400,
-  "message": "Validation failed",
-  "errors": [
-    {
-      "field": "email",
-      "message": "Email is required"
-    }
-  ]
-}
-```
-
-- [ ] Error `message` is human-readable (not "Error 0x00023")
-- [ ] Validation errors list **every failing field** — not just the first one
-- [ ] Never expose stack traces or internal error details in production
-- [ ] Use the same `status` field naming across all responses (`"success"` / `"error"`)
-
-### 📌 Response Structure
-
-- [ ] Wrap all responses in a consistent envelope
-
-```json
-{
-  "status": "success",
-  "data": { ... }
-}
-```
-
-- [ ] List responses include pagination metadata
-
-```json
-{
-  "status": "success",
-  "data": [...],
-  "pagination": {
-    "page": 1,
-    "limit": 20,
-    "total": 100
-  }
-}
-```
-
-- [ ] Use `camelCase` for JSON field names (consistent throughout)
-- [ ] Never return `null` arrays — return `[]` instead
+</div>
 
 ---
 
-## 🔵 Intermediate — For Real-World Production APIs
+## 🧑‍💻 About Me
 
-These are things most tutorials skip. They matter when your API is used by a real team or real users.
+I'm a Junior Backend Engineer, 15 days into my first job — and documenting everything I'm learning along the way.
 
-### 📌 Authentication & Security
+My focus is **API Design**: how to build backends that are consistent, predictable, and a joy to integrate with. Not just "making it work", but making it *maintainable*.
 
-> My second biggest lesson — auth gaps are invisible until something goes wrong.
-
-- [ ] All endpoints that return user data require **authentication**
-- [ ] Use **JWT** with expiry — never non-expiring tokens
-- [ ] Implement **Refresh Token** rotation (short-lived access token + longer refresh token)
-- [ ] Store tokens in `httpOnly` cookies, not `localStorage` (prevents XSS)
-- [ ] Validate **all** incoming request data before processing — never trust client input
-- [ ] Use HTTPS only — never send tokens over HTTP
-- [ ] Add **rate limiting** to auth endpoints (login, register, reset password)
-- [ ] Return `401` for unauthenticated, `403` for unauthorized — never mix them
-- [ ] Hash passwords with `bcrypt` (min 10 rounds) — never store plain text
-- [ ] Sanitize inputs to prevent **SQL Injection** and **NoSQL Injection**
-
-### 📌 Versioning
-
-- [ ] Version your API from **day one** — don't wait until you need to break changes
-  - ✅ `/api/v1/users`
-- [ ] Never remove or rename fields in an existing version
-- [ ] Create a new version (`v2`) for breaking changes — keep `v1` running
-- [ ] Document which version is deprecated and when it will be removed
-
-### 📌 Request Validation
-
-- [ ] Validate **type**, **format**, and **required fields** on every request
-- [ ] Return `422` with field-level errors for validation failures (not `400`)
-- [ ] Set **max length** on all string inputs
-- [ ] Validate UUIDs / IDs format before hitting the database
-- [ ] Use a validation library (Zod, Joi, Yup) — don't write manual checks
-
-### 📌 Performance Basics
-
-- [ ] Use **pagination** on all list endpoints — never return unbounded arrays
-- [ ] Add **indexes** on fields used in `WHERE` / `JOIN` queries
-- [ ] Select only needed fields — avoid `SELECT *` in production queries
-- [ ] Use **connection pooling** for database connections
-- [ ] Set **timeouts** on all external API calls
-
-### 📌 Documentation
-
-- [ ] Every endpoint has a description of what it does
-- [ ] Request body and query params are documented with types and examples
-- [ ] All possible response codes are listed
-- [ ] Authentication requirements are clearly stated
-- [ ] Use **OpenAPI / Swagger** to generate interactive docs
+- 🏢 Currently: Backend Engineer @ Internet Thailand Public Company Limited (INET)
+- 🌱 Learning: REST API Design · GraphQL · System Design fundamentals
+- 📝 Writing: Sharing what I learn at https://dev.to/beeworkk
+- 🎓 Guided by amazing professors who pushed me to think beyond just code
+- 📍 Based in Chiang Mai, Thailand 🇹🇭
 
 ---
 
-## 📋 Quick Reference Card
+## 🛠️ Tech Stack
 
-| Category | Most Common Mistake | Fix |
-|---|---|---|
-| Error Response | Different structure per endpoint | One standard error format |
-| Status Codes | Using `200` for everything | Match code to outcome |
-| Auth | No token expiry | JWT + refresh token rotation |
-| Naming | `/getUser`, `/createPost` | Nouns only: `/users`, `/posts` |
-| Validation | Only validate on frontend | Always validate on backend too |
-| Versioning | No versioning until too late | `/api/v1/` from day one |
-| Lists | Return all records | Always paginate |
+**Languages**
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=nodedotjs&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
 
----
+**Backend & API**
+![Express](https://img.shields.io/badge/Express-000000?style=flat&logo=express&logoColor=white)
+![REST API](https://img.shields.io/badge/REST_API-FF6C37?style=flat&logo=postman&logoColor=white)
+![GraphQL](https://img.shields.io/badge/GraphQL-E10098?style=flat&logo=graphql&logoColor=white)
 
-## 🙋 About This Checklist
+**Database**
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat&logo=postgresql&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white)
 
-This checklist is built from:
-- Things I learned in university that clicked during real work
-- Mistakes I made (or saw) in my first weeks as a Backend Engineer
-- Lessons from mentors who pushed me to think beyond "making it work"
+**Tools**
+![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=flat&logo=postman&logoColor=white)
 
-It's a living document — I update it as I learn more.
 
-**PRs and suggestions welcome.** If you've caught a mistake or want to add something, open an issue.
 
 ---
 
-## 📬 Connect
+## 🚀 Featured Projects
 
-- 🐦 Dev.to: [beeworkk](https://dev.to/beeworkk)
-- 💼 GitHub: [Bee34949](https://github.com/Bee34949)
-- 🔗 LinkedIn: [wongsaphat-nakmuang](https://linkedin.com/in/wongsaphat-nakmuang)
+### 🔷 [REST API Boilerplate](https://github.com/Bee34949/rest-api-boilerplate)
+> A production-ready Node.js REST API starter with auth, error handling, and clean structure built in.
+
+- ✅ JWT Authentication + Refresh Token flow
+- ✅ Consistent error response format
+- ✅ Request validation with Zod
+- ✅ Docker-ready
+
+---
+
+### 🔷 [API Design Checklist](https://github.com/Bee34949/api-design-checklist)
+> A practical checklist for designing REST APIs — from naming conventions to versioning strategy.
+
+- ✅ Based on real mistakes I made and learned from
+- ✅ Markdown + PDF format
+- ✅ Contributions welcome
+
+---
+
+
+---
+
+## 💬 My Current API Design Principle
+
+> *"An API is a product. Your consumers are developers. Design for them, not for your database schema."*
+
+— Something my professor said that stuck with me
+
+---
+
+## ✍️ Latest Articles
+
+- 📖 [What I'm Learning About API Design in My First Month as a Backend Engineer](https://dev.to/beeworkk/-what-im-learning-about-api-design-in-my-first-month-as-a-backend-engineer-43gf)
+
+👉 [See all articles →](https://dev.to/beeworkk)
+
+---
+## 📬 Let's Connect
+
+I write about **Backend Engineering** and **API Design** — in both 🇬🇧 English and 🇹🇭 Thai.
+
+If you're learning backend development, building a product, or just want to talk APIs — feel free to reach out.
+
+[![Email](https://img.shields.io/badge/Email-Say_Hello-EA4335?style=flat&logo=gmail&logoColor=white)](mailto:wongsaphatwork@email.com)
 
 ---
 
 <div align="center">
-  <sub>Made with ❤️ by a Junior Engineer learning in public 🌱</sub>
+  <sub>Updated regularly as I grow. This profile is a work in progress — just like me. 🌱</sub>
 </div>
