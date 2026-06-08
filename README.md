@@ -87,6 +87,7 @@ My focus is **API Design**: how to build backends that are consistent, predictab
 
 ## ✍️ Latest Articles
 
+- 📖 [Before You Write a Single Line: How to Plan Your API Like a Senior Engineer](https://dev.to/beeworkk/before-you-write-a-single-line-how-to-plan-your-api-like-a-senior-engineer-1j7a)
 - 📖 [What I'm Learning About API Design in My First Month as a Backend Engineer](https://dev.to/beeworkk/-what-im-learning-about-api-design-in-my-first-month-as-a-backend-engineer-43gf)
 
 👉 [See all articles →](https://dev.to/beeworkk)
